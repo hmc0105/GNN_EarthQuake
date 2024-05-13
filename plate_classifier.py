@@ -28,12 +28,16 @@ class Plate_Classifier:
         self.polygon_ls_org = polygon_ls_org
         self.num_plate = len(unique_classes)
 
+
+    #You can get a one-hot plate assignment by giving latitude and longitude as a input
     def plate(self,lat,lon):
         result = [0 for i in range(self.num_plate)]
         for i in range(self.num_plate):
             result[i]=self.point_in_polygon(Point(lat,lon),self.polygon_ls[i])
         return result
 
+
+    #You may visualize the plate by csv file. Check the idx for the name of tetical plate.
     def visualize(self,point_csv = "all.csv",idx=0):
         df = pd.read_csv(point_csv)
 
