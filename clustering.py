@@ -10,7 +10,7 @@ f = open("cluster_assign.csv",'w')
 wr = csv.writer(f)
 
 # Step 2: Extract latitude and longitude columns
-coordinates = df[['latitude', 'longitude']]
+coordinates = df[['longitude', 'latitude']]
 
 # Step 3: Perform k-means clustering
 k = 100  # Number of clusters
@@ -28,7 +28,7 @@ plt.scatter(df['longitude'], df['latitude'], c=df['cluster'], cmap='viridis', s=
 plt.colorbar(label='Cluster')
 plt.xlabel('Longitude')
 plt.ylabel('Latitude')
-plt.title('K-means Clustering with k=100')
+plt.title('K-means Clustering with k='+str(k))
 plt.show()
 
 df.to_csv("result.csv",index=False)

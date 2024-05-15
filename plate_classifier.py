@@ -30,11 +30,16 @@ class Plate_Classifier:
 
 
     #You can get a one-hot plate assignment by giving latitude and longitude as a input
-    def plate(self,lat,lon):
+    def plate(self,lon,lat):
         result = [0 for i in range(self.num_plate)]
         for i in range(self.num_plate):
-            result[i]=self.point_in_polygon(Point(lat,lon),self.polygon_ls[i])
-        return result
+            result[i]=self.point_in_polygon(Point(lon,lat),self.polygon_ls[i])
+        result1 = [False for i in range(self.num_plate-1)]
+        if(result[0]==True or result[1]==True):
+            result1[0] = True
+        for i in range(1,self.num_plate-1):
+            result1[i] = result[i+1]
+        return result1
 
 
     #You may visualize the plate by csv file. Check the idx for the name of tetical plate.
@@ -58,10 +63,10 @@ class Plate_Classifier:
         
        
 
-        # for i in range(len(self.polygon_ls_org)):
-        y = np.array(self.polygon_ls_org[idx])
-        p = Polygon(y,facecolor='k')
-        ax.add_patch(p)
+        for i in range(len(self.polygon_ls_org)):
+            y = np.array(self.polygon_ls_org[i])
+            p = Polygon(y,facecolor='k')
+            ax.add_patch(p)
 
         
         # Plot the points
@@ -127,3 +132,4 @@ if __name__ == "__main__":
 # 9	Southe American
 # 10	Nazca
 # 11	Antartic
+# 12 Australian
